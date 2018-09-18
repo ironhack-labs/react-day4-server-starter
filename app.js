@@ -14,7 +14,6 @@ const path         = require('path');
 // INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
 // AND UN-COMMENT OUT FOLLOWING LINES:
 
-// const LocalStrategy = require('passport-local').Strategy;
 // const session       = require('express-session');
 // const passport      = require('passport');
 
