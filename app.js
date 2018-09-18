@@ -11,10 +11,9 @@ const path         = require('path');
 
 
 // WHEN INTRODUCING USERS DO THIS:
-// INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session, cors
+// INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
 // AND UN-COMMENT OUT FOLLOWING LINES:
 
-// const cors          = require('cors');
 // const LocalStrategy = require('passport-local').Strategy;
 // const session       = require('express-session');
 // const passport      = require('passport');
