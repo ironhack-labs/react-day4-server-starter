@@ -8,14 +8,15 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const cors         = require('cors');
 
 
 // WHEN INTRODUCING USERS DO THIS:
 // INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
 // AND UN-COMMENT OUT FOLLOWING LINES:
 
-// const session       = require('express-session');
-// const passport      = require('passport');
+const session       = require('express-session');
+const passport      = require('passport');
 
 // require('./configs/passport');
 
@@ -36,6 +37,15 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 const app = express();
 
 // Middleware Setup
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000"]
+  })
+);
+
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,17 +59,21 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
       
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 // ADD SESSION SETTINGS HERE:
-
+app.use(session({
+  secret: "this is the secret",
+  resave: true,
+  saveUninitialized: true
+}));
 
 // USE passport.initialize() and passport.session() HERE:
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
@@ -74,5 +88,14 @@ app.locals.title = 'Express - Generated with IronGenerator';
 const index = require('./routes/index');
 app.use('/', index);
 
+
+const apis = require("./routes/project-route");
+app.use("/api", apis );
+
+const taskRoutes = require('./routes/task-routes');
+app.use('/api', taskRoutes);
+
+const authRoutes = require('./routes/auth-routes');
+app.use('/api', authRoutes);
 
 module.exports = app;
