@@ -12,6 +12,7 @@ const index = require('./routes/index');
 const authRoutes = require('./routes/auth-routes');
 const projectRoutes = require('./routes/project-routes');
 const taskRoutes = require('./routes/task-routes');
+const fileRoutes = require('./routes/file-upload-routes');
 
 // WHEN INTRODUCING USERS DO THIS:
 // INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
@@ -88,6 +89,7 @@ app.use('/', index);
 app.use('/api', authRoutes);
 app.use('/api', projectRoutes);
 app.use('/api', taskRoutes);
+app.use('/api', fileRoutes);
 
 // last route to the react index.html build
 app.use((req, res, next) => {

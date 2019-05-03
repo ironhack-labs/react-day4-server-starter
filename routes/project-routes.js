@@ -10,11 +10,14 @@ const Task = require('../models/task-model'); // <== !!!
 // POST route => to create a new project
 router.post('/projects', (req, res, next) => {
 
+  let { title, description, imageUrl } = req.body
+
   Project.create({
-    title: req.body.title,
-    description: req.body.description,
+    title,
+    description,
     tasks: [],
-    owner: req.user._id
+    owner: req.user._id,
+    imageUrl
   })
     .then(response => {
       res.json(response);
