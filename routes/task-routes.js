@@ -3,35 +3,35 @@ const mongoose = require('mongoose');
 const Task = require('../models/task-model');
 const Project = require('../models/project-model');
 
-const router  = express.Router();
+const router = express.Router();
 
 // GET route => to retrieve a specific task
 router.get('/projects/:projectId/tasks/:taskId', (req, res, next) => {
   Task.findById(req.params.taskId)
-  .then(theTask => {
+    .then(theTask => {
       res.json(theTask);
-  })
-  .catch(err => {
+    })
+    .catch(err => {
       res.json(err);
-  })
+    })
 });
 
 // POST route => to create a new task
-router.post('/tasks', (req, res, next)=>{
-  
+router.post('/tasks', (req, res, next) => {
+
   Task.create({
-      title: req.body.title,
-      description: req.body.description,  
-      project: req.body.projectID
+    title: req.body.title,
+    description: req.body.description,
+    project: req.body.projectID
   })
     .then(response => {
-        Project.findByIdAndUpdate(req.body.projectID, { $push:{ tasks: response._id }}, { new: true } )
+      Project.findByIdAndUpdate(req.body.projectID, { $push: { tasks: response._id } }, { new: true })
         .then(theResponse => {
-            res.json(theResponse);
+          res.json(theResponse);
         })
         .catch(err => {
           res.json(err);
-      })
+        })
     })
     .catch(err => {
       res.json(err);
@@ -39,9 +39,9 @@ router.post('/tasks', (req, res, next)=>{
 })
 
 // PUT route => to update a specific task
-router.put('/tasks/:id', (req, res, next)=>{
+router.put('/tasks/:id', (req, res, next) => {
 
-  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
@@ -56,9 +56,9 @@ router.put('/tasks/:id', (req, res, next)=>{
 })
 
 // DELETE route => to delete a specific task
-router.delete('/tasks/:id', (req, res, next)=>{
+router.delete('/tasks/:id', (req, res, next) => {
 
-  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
