@@ -27,7 +27,14 @@ class ProjectList extends Component {
   render() {
     return (
       <div>
-        <div style={{ width: '60%', float: 'left' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            width: '100'
+          }}
+        >
           {this.state.listOfProjects.map(project => {
             return (
               <div key={project._id}>
@@ -45,7 +52,14 @@ class ProjectList extends Component {
             );
           })}
         </div>
-        <div style={{ width: '40%', float: 'right' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            width: '100'
+          }}
+        >
           <AddProject getData={() => this.getAllProjects()} /> {/* <== !!! */}
         </div>
       </div>

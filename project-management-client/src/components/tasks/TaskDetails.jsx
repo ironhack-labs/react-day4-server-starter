@@ -28,7 +28,14 @@ class TaskDetails extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          width: '100'
+        }}
+      >
         <h1>{this.state.title}</h1>
         <p>{this.state.description}</p>
       </div>

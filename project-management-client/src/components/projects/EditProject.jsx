@@ -45,10 +45,25 @@ class EditProject extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          width: '100'
+        }}
+      >
         <hr />
         <h3>Edit form</h3>
-        <form onSubmit={this.handleFormSubmit}>
+        <form
+          onSubmit={this.handleFormSubmit}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            width: '100'
+          }}
+        >
           <label>Title:</label>
           <input
             type="text"

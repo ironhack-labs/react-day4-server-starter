@@ -29,8 +29,23 @@ class AddProject extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleFormSubmit}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          width: '100'
+        }}
+      >
+        <form
+          onSubmit={this.handleFormSubmit}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            width: '100'
+          }}
+        >
           <label>Title:</label>
           <input
             type="text"

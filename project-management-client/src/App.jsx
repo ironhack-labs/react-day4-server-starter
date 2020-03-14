@@ -6,6 +6,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import ProjectList from './components/projects/ProjectList';
 import Navbar from './components/NavBar';
+import SwipeComponent from './components/Swipe'
 import ProjectDetails from './components/projects/ProjectDetails';
 import TaskDetails from './components/tasks/TaskDetails'; // <== import the TaskDetails component
 
@@ -20,6 +21,7 @@ class App extends Component {
           {/* added to display task details page: */}
           <Route exact path="/projects/:id/tasks/:taskId" component={TaskDetails} /> {/* <== !!! */}
         </Switch>
+        <SwipeComponent>Swipe This</SwipeComponent>
       </BrowserRouter>
     );
   }
