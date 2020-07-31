@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const Task = require('../models/task-model');
+const Project = require('../models/project-model');
 
 router.get('/tasks/:id', (req, res, next) => {
-	if (mongoose.isValidObjectId(req.params.id)) {
-		//TODO: Populate all task
+	if (mongoose.Types.ObjectId.isValid(req.params.id)) {
 		Task.findById(req.params.id)
+			.populate('project')
 			.then((task) => res.json(task))
 			.catch((error) => res.json(error));
 	} else {
@@ -14,7 +15,7 @@ router.get('/tasks/:id', (req, res, next) => {
 	}
 });
 router.put('/tasks/:id', (req, res, next) => {
-	if (mongoose.isValidObjectId(req.params.id)) {
+	if (mongoose.Types.ObjectId.isValid(req.params.id)) {
 		Task.findByIdAndUpdate(
 			req.params.id,
 			{
@@ -32,22 +33,33 @@ router.put('/tasks/:id', (req, res, next) => {
 });
 
 router.delete('/tasks/:id', (req, res, next) => {
-	if (mongoose.isValidObjectId(req.params.id)) {
+	if (mongoose.Types.ObjectId.isValid(req.params.id)) {
 		Task.findByIdAndRemove(req.params.id)
-			.then((task) => res.json(task))
+			.then((task) =>
+				Project.findById(task.project).then((p) => {
+					const idxTask = p.tasks.findIndex(rask._id);
+					p.task.splice(idxTask, 1);
+					Project.findByIdAndUpdate(p._id, p).then(() => res.json(task));
+				})
+			)
 			.catch((error) => res.json(error));
 	} else {
 		res.next();
 	}
 });
 
-router.post('/projects', (req, res, next) => {
+router.post('/tasks', (req, res, next) => {
 	Task.create({
 		title: req.body.title,
 		description: req.body.description,
-		project: req.body.projectID,
+		project: req.body.project,
 	})
-		.then((task) => res.json(task))
+		.then((task) =>
+			Project.findById(task.project).then((p) => {
+				p.tasks.push(task._id);
+				Project.findByIdAndUpdate(p._id, p).then(() => res.json(task));
+			})
+		)
 		.catch((error) => res.json(error));
 });
 

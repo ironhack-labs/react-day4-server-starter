@@ -64,7 +64,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(
 	cors({
 		credentials: true,
-		origin: ['http://localhost:3001'], // <== permitir llamadas de este origen
+		origin: ['http://localhost:3000'], // <== permitir llamadas de este origen
 	})
 );
 // ADD SESSION SETTINGS HERE:
@@ -80,7 +80,14 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+
 const projects = require('./routes/project-routes');
 app.use('/api', projects);
+
+const tasks = require('./routes/task-routes');
+app.use('/api', tasks);
+
+const maps = require('./routes/maps-routes');
+app.use('/api', maps);
 
 module.exports = app;
